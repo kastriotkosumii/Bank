@@ -1,7 +1,11 @@
 package com.linkplus.Bank.model;
 
+import com.linkplus.Bank.model.enums.FeeType;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -38,4 +42,7 @@ public class Transaction {
 
     @Column(nullable = false)
     private String reason;
+
+    @Enumerated(EnumType.STRING)
+    private FeeType feeType;
 }

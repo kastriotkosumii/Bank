@@ -14,8 +14,9 @@ public class BankServiceImp implements BankService {
     private final BankRepository bankRepository;
 
     @Override
-    public Double getAllFees() {
-        return bankRepository.getTotalCharchedFee();
-    }
+    public Double getAllFees(Long bankId) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getAllFees'");
+    }    
     
 }

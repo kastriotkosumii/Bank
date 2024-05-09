@@ -18,8 +18,8 @@ public class BankApplication {
 
 	@Bean
     CommandLineRunner runner(
-            BankUserRepository bankUserRepository,
-			AccountRepository accountRepository) {
+            BankUserRepository bankUserRepository
+	) {
         return args -> {
             addBankUser(bankUserRepository);
         };

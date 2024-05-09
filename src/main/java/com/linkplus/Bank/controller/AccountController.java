@@ -22,6 +22,5 @@ public class AccountController {
     public void addAccount(@RequestBody AccountRegistrationRequest accountRegistrationRequest) {
         accountService.addAccount(accountRegistrationRequest);
     }
-    
-    
+        
 }

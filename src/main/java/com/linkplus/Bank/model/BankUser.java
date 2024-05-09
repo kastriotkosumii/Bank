@@ -1,10 +1,15 @@
 package com.linkplus.Bank.model;
 
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -21,15 +26,20 @@ public class BankUser {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    Long id;
+    private Long id;
 
     @Column(nullable = false)
-    String fistName;
+    private String fistName;
 
     @Column(nullable = false)
-    String lastName;
+    private String lastName;
 
     @Column(nullable = false)
-    String email;
+    private String email;
+
+    @OneToMany(mappedBy = "bankUser")
+    @Column(nullable = false)
+    @JsonManagedReference
+    private List<Account> userAccount;
     
 }

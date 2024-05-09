@@ -40,6 +40,6 @@ public class BankUser {
     @OneToMany(mappedBy = "bankUser")
     @Column(nullable = false)
     @JsonManagedReference
-    private List<Account> userAccount;
+    private List<Account> bankAccounts;
     
 }

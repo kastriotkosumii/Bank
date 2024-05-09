@@ -28,8 +28,12 @@ public class Account {
 
     private Double accountBalance; 
 
+    //TODO: type of the Account for example: savings, lloagri rrjedhese etc. as Enum.
+
     @ManyToOne
     @JoinColumn(name = "bankUser_id")
     @JsonBackReference
     private BankUser bankUser;
+
+    
 }

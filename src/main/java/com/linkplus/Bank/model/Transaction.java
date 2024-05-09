@@ -26,14 +26,15 @@ public class Transaction {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "From_Account")
-    @Column(nullable = false)
+    @JoinColumn(name = "from_account")
     private Account fromAccount;
 
     @ManyToOne
-    @JoinColumn(name = "To_Account")
-    @Column(nullable = false)
+    @JoinColumn(name = "to_account")
     private Account toAccount;
+
+    @Column(nullable = false)
+    private Double ammount;
 
     @Column(nullable = false)
     private String reason;

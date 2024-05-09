@@ -1,10 +1,12 @@
 package com.linkplus.Bank.service.impl;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.linkplus.Bank.Exception.ResourceNotFoundException;
 import com.linkplus.Bank.model.Account;
 import com.linkplus.Bank.model.Transaction;
+import com.linkplus.Bank.model.enums.FeeType;
 import com.linkplus.Bank.payload.request.Transaction.FundTransferRequest;
 import com.linkplus.Bank.repository.AccountRepository;
 import com.linkplus.Bank.repository.TransactionRepository;
@@ -19,6 +21,9 @@ public class TransactionServiceIml implements TransactionService{
     private final TransactionRepository transactionRepository;
     private final AccountRepository accountRepository;
 
+    @Value("${transaction.chargeFeePercentage}")
+    private double chargeFeePercentage;
+
     @Override
     public void fundTransfer(FundTransferRequest fundTransfer) {
         Account fromAccount = accountRepository.findById(fundTransfer.fromAccount())
@@ -30,7 +35,8 @@ public class TransactionServiceIml implements TransactionService{
         if(fundTransfer.ammount() <= 0)
             throw new RuntimeException("Fund transfer most be grater than 0");
         
-        toAccount.setAccountBalance(toAccount.getAccountBalance() + fundTransfer.ammount());
+        Double calculatedFee = calculateFee(fundTransfer.ammount(), fundTransfer.feeType()); 
+        toAccount.setAccountBalance(toAccount.getAccountBalance() - calculatedFee);
         fromAccount.setAccountBalance(fromAccount.getAccountBalance() - fundTransfer.ammount());
 
         accountRepository.save(fromAccount);
@@ -42,8 +48,17 @@ public class TransactionServiceIml implements TransactionService{
         transaction.setFromAccount(fromAccount);
         transaction.setToAccount(toAccount);
         transaction.setReason(fundTransfer.reason());
+        transaction.setFeeType(FeeType.valueOf(fundTransfer.feeType()));
 
         transactionRepository.save(transaction);
+
+    }
+
+    private Double calculateFee(Double ammount, String feeType) {
+        if(feeType.trim().equals(FeeType.FLAT_FEE.toString()))
+            return ammount - 10;
+
+        return ammount - (ammount * chargeFeePercentage/100);
 
     }
     

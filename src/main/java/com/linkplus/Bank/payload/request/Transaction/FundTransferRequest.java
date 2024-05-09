@@ -4,7 +4,8 @@ public record FundTransferRequest(
     Long fromAccount,
     Long toAccount,
     Double ammount,
-    String reason
+    String reason,
+    String feeType
 ) {
     
 }

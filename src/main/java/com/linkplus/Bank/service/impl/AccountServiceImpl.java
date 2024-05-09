@@ -36,7 +36,7 @@ public class AccountServiceImpl implements AccountService{
     @Override
     public void deposite(AccountDepositeRequest accountDepositeRequest) {
         Account account = accountRepository.findById(accountDepositeRequest.accountId())
-                                .orElseThrow(() -> new ResourceNotFoundException("Bank User not found!"));
+                                .orElseThrow(() -> new ResourceNotFoundException("Account not found!"));
 
         if(accountDepositeRequest.ammount() <= 0)
             throw new RuntimeException("Ammount cant be less or equals to 0!");
@@ -49,7 +49,7 @@ public class AccountServiceImpl implements AccountService{
     @Override
     public void withdraw(AccountWithdrawRequest accountWithdrawRequest) {
         Account account = accountRepository.findById(accountWithdrawRequest.accountId())
-                            .orElseThrow(() -> new ResourceNotFoundException("Bank User not found!"));
+                            .orElseThrow(() -> new ResourceNotFoundException("Account not found!"));
 
         if(accountWithdrawRequest.ammount() <= 0)
             throw new RuntimeException("Ammount cant be less or equals to 0!");

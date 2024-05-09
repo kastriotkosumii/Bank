@@ -6,6 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
 import com.linkplus.Bank.model.BankUser;
+import com.linkplus.Bank.repository.AccountRepository;
 import com.linkplus.Bank.repository.BankUserRepository;
 
 @SpringBootApplication
@@ -17,7 +18,8 @@ public class BankApplication {
 
 	@Bean
     CommandLineRunner runner(
-            BankUserRepository bankUserRepository) {
+            BankUserRepository bankUserRepository,
+			AccountRepository accountRepository) {
         return args -> {
             addBankUser(bankUserRepository);
         };

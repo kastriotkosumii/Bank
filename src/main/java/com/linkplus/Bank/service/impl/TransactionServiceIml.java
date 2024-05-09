@@ -36,6 +36,7 @@ public class TransactionServiceIml implements TransactionService{
             throw new RuntimeException("Fund transfer most be grater than 0");
         
         Double calculatedFee = calculateFee(fundTransfer.ammount(), fundTransfer.feeType()); 
+
         toAccount.setAccountBalance(toAccount.getAccountBalance() - calculatedFee);
         fromAccount.setAccountBalance(fromAccount.getAccountBalance() - fundTransfer.ammount());
 
@@ -49,6 +50,7 @@ public class TransactionServiceIml implements TransactionService{
         transaction.setToAccount(toAccount);
         transaction.setReason(fundTransfer.reason());
         transaction.setFeeType(FeeType.valueOf(fundTransfer.feeType()));
+        transaction.setFeeCharged(calculatedFee);
 
         transactionRepository.save(transaction);
 
@@ -56,9 +58,9 @@ public class TransactionServiceIml implements TransactionService{
 
     private Double calculateFee(Double ammount, String feeType) {
         if(feeType.trim().equals(FeeType.FLAT_FEE.toString()))
-            return ammount - 10;
+            return 10.00;
 
-        return ammount - (ammount * chargeFeePercentage/100);
+        return ammount * (chargeFeePercentage/100);
 
     }
     

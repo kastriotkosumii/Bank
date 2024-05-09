@@ -35,5 +35,10 @@ public class Account {
     @JsonBackReference
     private BankUser bankUser;
 
+    @ManyToOne
+    @JoinColumn(name = "bank_id")
+    @JsonBackReference
+    private Bank bank;
+
     
 }
